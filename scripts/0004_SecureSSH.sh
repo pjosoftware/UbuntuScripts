@@ -6,6 +6,7 @@ sed -i "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/" /etc/ssh/sshd_confi
 sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
 sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
 sed -i "s/#AuthorizedKeysFile/AuthorizedKeysFile/" /etc/ssh/sshd_config
+sed -i "s/#LogLevel INFO/LogLevel VERBOSE/" /etc/ssh/sshd_config
 sed -i "s/Include \/etc\/ssh\/sshd_config.d\/\*.conf/#Include \/etc\/ssh\/sshd_config.d\/\*.conf/" /etc/ssh/sshd_config
 sed -i "s/#Port 22/Port $port/" /etc/ssh/sshd_config
 
