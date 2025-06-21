@@ -25,12 +25,12 @@ for script in "${scripts[@]}"; do
 
   printf "\033[1;1H\033[0;36mProgress: [%-${bar_width}s] %3d%% - Running: %-40s\033[0m\n" "$bar" "$percent" "$script"
 
-  if grep -q "read " "$script"; then
-    tput cnorm
-  fi
+  # if grep -q "read " "$script"; then
+  #   tput cnorm
+  # fi
 
   bash "$script"
-  tput civis
+  # tput civis
 done
 
 tput cnorm
