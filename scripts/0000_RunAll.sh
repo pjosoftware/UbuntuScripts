@@ -1,4 +1,9 @@
 #!/bin/bash
+
+printf "\033[?1049h"
+clear
+tput civis
+
 scripts=()
 for script in *.sh; do
   [[ "$script" != "0000_RunAll.sh" ]] && scripts+=("$script")
@@ -7,9 +12,6 @@ done
 total=${#scripts[@]}
 count=0
 bar_width=40
-
-clear
-tput civis
 
 printf "\033[1;1H\033[0;36mProgress: [%-${bar_width}s]   0%%\033[0m\n" "$(printf -- '-%.0s' $(seq 1 $bar_width))"
 
@@ -32,4 +34,5 @@ for script in "${scripts[@]}"; do
 done
 
 tput cnorm
-echo -e "\n\033[0;32mAll scripts executed!\033[0m"
+printf "\033[?1049l"
+echo -e "\033[0;32mAll scripts executed!\033[0m"
