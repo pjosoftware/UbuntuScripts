@@ -13,7 +13,8 @@ total=${#scripts[@]}
 count=0
 bar_width=40
 
-printf "\033[1;1H\033[0;36mProgress: [%-${bar_width}s]   0%%\033[0m\n" "$(printf -- '-%.0s' $(seq 1 $bar_width))"
+printf "\033[1;1H\033[0;36mProgress: [%-${bar_width}s]   0%%\033[0m" "$(printf -- '-%.0s' $(seq 1 $bar_width))"
+printf "\033[2;1H\033[0;36m%s\033[0m\n" "$(printf '─%.0s' $(seq 1 $(tput cols)))"
 
 for script in "${scripts[@]}"; do
   ((count++))
@@ -23,16 +24,26 @@ for script in "${scripts[@]}"; do
   bar=$(printf "%0.s#" $(seq 1 $filled))
   bar+=$(printf "%0.s-" $(seq 1 $empty))
 
-  printf "\033[1;1H\033[0;36mProgress: [%-${bar_width}s] %3d%% - Running: %-40s\033[0m\n" "$bar" "$percent" "$script"
+  printf "\033[1;1H\033[0;36mProgress: [%-${bar_width}s] %3d%% - Running: %-40s\033[0m" "$bar" "$percent" "$script"
 
-  # if grep -q "read " "$script"; then
-  #   tput cnorm
-  # fi
+  tmpfile=$(mktemp)
 
-  bash "$script"
-  # tput civis
+  if grep -q "read " "$script"; then
+    tput cnorm
+  fi
+
+  { bash "$script"; echo "[$script finished with exit code $?]"; } | tee "$tmpfile" | sed "s/^/\033[3;1H/" 
+
+  tput civis
+
+  tput cup 3 0
+  cat "$tmpfile"
+  rm -f "$tmpfile"
+
+  echo ""
 done
 
+# Cleanup
 tput cnorm
 printf "\033[?1049l"
 echo -e "\033[0;32mAll scripts executed!\033[0m"
