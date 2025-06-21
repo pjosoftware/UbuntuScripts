@@ -16,4 +16,3 @@ echo "Firewall rules updated. Port ${port}/tcp is now allowed."
 systemctl daemon-reexec
 systemctl restart ssh
 systemctl enable fail2ban --now
-fail2ban-client reload
