@@ -5,6 +5,7 @@ sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
 sed -i "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/" /etc/ssh/sshd_config
 sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
 sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
+sed -i "s/Include \/etc\/ssh\/sshd_config.d\/\*.conf/#Include \/etc\/ssh\/sshd_config.d\/\*.conf/" /etc/ssh/sshd_config
 sed -i "s/#Port 22/Port $port/" /etc/ssh/sshd_config
 
 cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
