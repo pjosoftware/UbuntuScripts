@@ -1,6 +1,7 @@
 #!/bin/bash
 bar_width=40
 scripts=()
+
 for script in *.sh; do
   [[ "$script" != "0000_RunAll.sh" ]] && scripts+=("$script")
 done
@@ -33,9 +34,10 @@ for script in "${scripts[@]}"; do
   fi
 
   tput cup 3 0
-  bash "$script"
-  tput civis
 
+  script -q -c "bash '$script'" /dev/null
+
+  tput civis
   echo ""
 done
 
