@@ -10,7 +10,7 @@ sed -i "s/Include \/etc\/ssh\/sshd_config.d\/\*.conf/#Include \/etc\/ssh\/sshd_c
 sed -i "s/#Port 22/Port $port/" /etc/ssh/sshd_config
 
 cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
-sed -i "s/port    = ssh/enabled = true\nport    = $port/" /etc/fail2ban/jail.local
+sed -i "s/port    = ssh/enabled = true\nmode = aggressive\nport    = $port/" /etc/fail2ban/jail.local
 
 ufw allow ${port}/tcp
 echo "Firewall rules updated. Port ${port}/tcp is now allowed."
