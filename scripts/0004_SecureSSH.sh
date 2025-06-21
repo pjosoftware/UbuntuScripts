@@ -6,12 +6,12 @@ sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/' /etc/ssh/sshd_confi
 sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sed -i 's/#Port 22/Port $port/' /etc/ssh/sshd_config
 
-cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
-sed -i 's/port    = ssh/enabled = true\nport    = $port/' /etc/fail2ban/jail.local
+# cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+# sed -i 's/port    = ssh/enabled = true\nport    = $port/' /etc/fail2ban/jail.local
 
-ufw allow ${port}/tcp
-echo "Firewall rules updated. Port ${port}/tcp is now allowed."
+# ufw allow ${port}/tcp
+# echo "Firewall rules updated. Port ${port}/tcp is now allowed."
 
 systemctl daemon-reexec
 systemctl restart ssh
-systemctl enable fail2ban --now
+# systemctl enable fail2ban --now
